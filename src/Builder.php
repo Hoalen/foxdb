@@ -78,6 +78,7 @@ class Builder
 		$this->PARAMS = $params;
 
 		// error_log($query);
+		// error_log(json_encode($this->PARAMS));
 
 		$stmt = $this->CONFIG->pdo()->prepare($query);
 		$stmt->execute($this->PARAMS);
@@ -1268,7 +1269,7 @@ class Builder
 	}
 
 
-	protected function makeInsertQueryString(array $values)
+	protected function makeInsertQueryString(array|object $values)
 	{
 		$param_name = [];
 		$param_value_name_list = [];
@@ -1283,7 +1284,7 @@ class Builder
 		return "INSERT INTO `$this->TABLE` (" . implode(',', $param_name) . ") VALUES (" . implode(',', $param_value_name_list) . ")";
 	}
 
-	protected function makeUpdateQueryString(array $values)
+	protected function makeUpdateQueryString(array|object $values)
 	{
 		$this->setTimestamps($values, true);
 
@@ -1341,7 +1342,7 @@ class Builder
 	}
 
 
-	public function insert(array $values, $get_last_insert_id = false)
+	public function insert(array|object $values, $get_last_insert_id = false)
 	{
 		$this->setAction('insert');
 		$query = $this->makeInsertQueryString($values);
@@ -1374,7 +1375,7 @@ class Builder
 	}
 
 
-	public function update(array $values)
+	public function update(array|object $values)
 	{
 		$this->setAction('update');
 		$this->clearSource('DISTINCT');
