@@ -496,7 +496,7 @@ class Builder
 
 	public function true($column)
 	{
-		return $this->is($column, false);
+		return $this->is($column, true);
 	}
 
 	public function false($column)
@@ -700,7 +700,10 @@ class Builder
 	 */
 	public function value($column = '*')
 	{
-		return $this->get_value($this->first(), $column);
+		$first = $this->first();
+		$value = $this->get_value($first, $column, null); // Default to null
+
+		return $value;
 	}
 
 
@@ -1441,7 +1444,7 @@ class Builder
 			return $array[0];
 		}
 
-		return false;
+		return null;
 	}
 
 
